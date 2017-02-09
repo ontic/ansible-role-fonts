@@ -9,6 +9,12 @@
 
 - include: 'package.yml'
   tags:
-    - 'cpdf'
-    - 'cpdf-package'
+    - 'fonts'
+    - 'fonts-package'
     - 'package'
+
+- include: 'configure.yml'
+  tags:
+    - 'fonts'
+    - 'fonts-configure'
+    - 'configure'

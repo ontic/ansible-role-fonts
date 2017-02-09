@@ -21,7 +21,6 @@
     - 'deb-src http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates multiverse'
   when: '{{ ansible_os_family == "Debian" }}'
 
-
 - name: 'Fonts | Debian | Update APT cache.'
   become: yes
   apt:
@@ -53,6 +52,7 @@
   apt:
     name: 'ttf-mscorefonts-installer'
     state: 'present'
+  register: 'fonts_microsoft_installed'
   when: '{{ ansible_os_family == "Debian" }}'
 
 - name: 'Fonts | RedHat | Install Microsoft Core Fonts prerequisites.'

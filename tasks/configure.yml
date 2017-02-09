@@ -1,0 +1,40 @@
+# This source file is subject to the (Open Source Initiative) BSD license
+# that is bundled with this package in the LICENSE file. It is also available
+# through the world-wide-web at this URL: http://www.ontic.com.au/license.html
+# If you did not receive a copy of the license and are unable to obtain it through
+# the world-wide-web, please send an email to license@ontic.com.au immediately.
+# Copyright (c) 2010-2016 Ontic. (http://www.ontic.com.au). All rights reserved.
+
+---
+
+- name: 'Fonts | Configure shared fonts.'
+  become: yes
+  copy:
+    src: '{{ item.1.src }}'
+    dest: '/usr/local/share/fonts/{{ item.1.type }}/{{ item.1.dest }}'
+    owner: '{{ item.1.owner | default(item.0.name) }}'
+    group: '{{ item.1.group | default(item.0.group) }}'
+    mode: '0644'
+  register: 'fonts_user_installed'
+  with_subelements:
+    - '{{ fonts }}'
+    - 'shared'
+    - flags:
+      skip_missing: yes
+  when: '{{ fonts }}'
+
+- name: 'Fonts | Configure user fonts.'
+  become: yes
+  copy:
+    src: '{{ item.1.src }}'
+    dest: '/home/{{ item.0.name }}/.fonts/{{ item.1.type }}/{{ item.1.dest }}'
+    owner: '{{ item.1.owner | default(item.0.name) }}'
+    group: '{{ item.1.group | default(item.0.group) }}'
+    mode: '{{ item.1.mode | default(omit) }}'
+  register: 'fonts_shared_installed'
+  with_subelements:
+    - '{{ fonts }}'
+    - 'user'
+    - flags:
+      skip_missing: yes
+  when: '{{ fonts }}'

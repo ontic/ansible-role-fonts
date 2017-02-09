@@ -3,7 +3,16 @@
 ## Example
 
 ```
-
+fonts:
+  shared:
+    - type: 'truetype'
+      src: 'Fabulous.ttf'
+      dest: 'dafont/Fabulous.ttf'
+  user:
+    - name: 'johndoe'
+      type: 'opentype'
+      src: 'Aulyars.otf'
+      dest: 'dafont/Aulyars.otf'
 ```
 
 ## Role Variables

@@ -8,5 +8,16 @@
 ---
 
 - hosts: 'all'
+  vars:
+    fonts:
+      shared:
+        - type: 'truetype'
+          src: '{{ role_path }}/tests/fonts/Fabulous.ttf'
+          dest: 'dafont/Fabulous.ttf'
+      user:
+        - name: 'johndoe'
+          type: 'opentype'
+          src: '{{ role_path }}/tests/fonts/Aulyars.otf'
+          dest: 'dafont/Aulyars.otf'
   roles:
     - { role: 'ontic.fonts' }
