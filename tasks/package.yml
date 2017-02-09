@@ -65,7 +65,7 @@
     - 'cabextract'
     - 'xorg-x11-font-utils'
     - 'fontconfig'
-  when: '{{ ansible_os_family == "Debian" }}'
+  when: '{{ ansible_os_family == "RedHat" }}'
 
 - name: 'Fonts | RedHat | Install Microsoft Core Fonts.'
   become: yes
