@@ -7,6 +7,26 @@
 
 ---
 
+- name: 'Fonts | Debian | Update repository list.'
+  become: yes
+  apt_repository:
+    repo: '{{ item }}'
+    state: 'present'
+    update_cache: false
+  register: 'fonts_multiverse_installed'
+  with_items:
+    - 'deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} multiverse'
+    - 'deb-src http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} multiverse'
+    - 'deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates multiverse'
+    - 'deb-src http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates multiverse'
+  when: '{{ ansible_os_family == "Debian" }}'
+
+
+- name: 'Fonts | Debian | Update APT cache.'
+  become: yes
+  apt:
+    update_cache: yes
+  when: '{{ ansible_os_family == "Debian" and fonts_multiverse_installed.changed }}'
 
 - name: 'Fonts | Debian | Install Microsoft Core Fonts prerequisites.'
   become: yes
