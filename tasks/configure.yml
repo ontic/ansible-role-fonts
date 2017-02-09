@@ -16,12 +16,8 @@
     group: '{{ item.1.group | default(item.0.group) }}'
     mode: '0644'
   register: 'fonts_user_installed'
-  with_subelements:
-    - '{{ fonts }}'
-    - 'shared'
-    - flags:
-      skip_missing: yes
-  when: '{{ fonts }}'
+  with_items: '{{ fonts_shared }}'
+  when: '{{ fonts_shared }}'
 
 - name: 'Fonts | Configure user fonts.'
   become: yes
@@ -32,9 +28,5 @@
     group: '{{ item.1.group | default(item.0.group) }}'
     mode: '{{ item.1.mode | default(omit) }}'
   register: 'fonts_shared_installed'
-  with_subelements:
-    - '{{ fonts }}'
-    - 'user'
-    - flags:
-      skip_missing: yes
-  when: '{{ fonts }}'
+  with_items: '{{ fonts_user }}'
+  when: '{{ fonts_user }}'
