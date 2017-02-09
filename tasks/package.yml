@@ -7,6 +7,13 @@
 
 ---
 
+- name: 'Fonts | Debian | Install HTTPS transport.'
+  become: yes
+  apt:
+    name: 'apt-transport-https'
+    state: 'present'
+  when: '{{ ansible_os_family == "Debian" }}'
+
 - name: 'Fonts | Debian | Update repository list.'
   become: yes
   apt_repository:
