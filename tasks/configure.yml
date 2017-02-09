@@ -40,8 +40,8 @@
     group: '{{ item.group | default(omit) }}'
     mode: '0755'
     recurse: yes
-  with_items: '{{ fonts_shared }}'
-  when: '{{ fonts_shared }}'
+  with_items: '{{ fonts_user }}'
+  when: '{{ fonts_user }}'
 
 - name: 'Fonts | Configure user fonts.'
   become: yes
