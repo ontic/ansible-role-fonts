@@ -14,7 +14,7 @@
         src: '{{ role_path }}/tests/fonts/Fabulous.ttf'
         dest: 'dafont/Fabulous.ttf'
     fonts_user:
-      - name: 'johndoe'
+      - name: 'travis'
         type: 'opentype'
         src: '{{ role_path }}/tests/fonts/Aulyars.otf'
         dest: 'dafont/Aulyars.otf'
