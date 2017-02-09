@@ -21,6 +21,8 @@
 
 - name: 'Fonts | Debian | Accept Microsoft Core Fonts EULA.'
   shell: 'echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections'
+  args:
+    executable: '/bin/bash'
   when: '{{ ansible_os_family == "Debian" }}'
 
 - name: 'Fonts | Debian | Install Microsoft Core Fonts.'
