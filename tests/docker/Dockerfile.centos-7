@@ -15,7 +15,7 @@ RUN yum -y install which
 RUN yum -y install epel-release
 RUN yum -y install git ansible sudo
 RUN yum clean all
-RUN ansible-galaxy install ontic.cpdf
+RUN ansible-galaxy install ontic.fonts
 
 RUN sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers
 RUN echo -e '[local]\nlocalhost ansible_connection=local' > /etc/ansible/hosts

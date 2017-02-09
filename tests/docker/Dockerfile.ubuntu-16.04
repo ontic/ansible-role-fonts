@@ -4,7 +4,7 @@ RUN apt-get update
 RUN apt install -y software-properties-common git
 RUN apt-add-repository -y ppa:ansible/ansible
 RUN apt -y update && apt -y install ansible
-RUN ansible-galaxy install ontic.cpdf
+RUN ansible-galaxy install ontic.fonts
 
 COPY docker/initctl_faker .
 RUN chmod +x initctl_faker && rm -fr /sbin/initctl && ln -s /initctl_faker /sbin/initctl
