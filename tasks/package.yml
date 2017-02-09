@@ -35,7 +35,7 @@
   with_items:
     - 'libfreetype6'
     - 'libfreetype6-dev'
-    - 'libfontconfig'
+    - 'libfontconfig1'
   when: '{{ ansible_os_family == "Debian" }}'
 
 - name: 'Fonts | Debian | Accept Microsoft Core Fonts EULA.'
