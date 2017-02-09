@@ -72,4 +72,5 @@
   yum:
     name: 'https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm'
     state: 'present'
+    validate_certs: no
   when: '{{ ansible_os_family == "RedHat" }}'
