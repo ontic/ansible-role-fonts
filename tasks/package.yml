@@ -11,7 +11,7 @@
   become: yes
   apt:
     name: 'apt-transport-https'
-    state: 'present'
+    state: 'latest'
   when: '{{ ansible_os_family == "Debian" }}'
 
 - name: 'Fonts | Debian | Update repository list.'
