@@ -34,7 +34,7 @@
 - name: 'Fonts | Configure user font directories.'
   become: yes
   file:
-    path: '/home/{{ item.name }}/.fonts/{{ item.type }}/{{ item.dest  | dirname }}'
+    path: '/home/{{ item.name }}/.fonts/{{ item.type }}/{{ item.dest | dirname }}'
     state: 'directory'
     owner: '{{ item.owner | default(item.name) }}'
     group: '{{ item.group | default(omit) }}'
