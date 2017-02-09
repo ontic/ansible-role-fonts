@@ -1,0 +1,38 @@
+# This source file is subject to the (Open Source Initiative) BSD license
+# that is bundled with this package in the LICENSE file. It is also available
+# through the world-wide-web at this URL: http://www.ontic.com.au/license.html
+# If you did not receive a copy of the license and are unable to obtain it through
+# the world-wide-web, please send an email to license@ontic.com.au immediately.
+# Copyright (c) 2010-2016 Ontic. (http://www.ontic.com.au). All rights reserved.
+
+---
+
+dependencies: []
+
+galaxy_info:
+  author: 'Adam Dyson'
+  description: 'This role installs fonts on RedHat/CentOS and Debian/Ubuntu Linux servers.'
+  company: 'Ontic'
+  license: 'BSD-3-Clause'
+  min_ansible_version: '2.1'
+  platforms:
+    - name: 'Ubuntu'
+      versions:
+        - 'precise'
+        - 'trusty'
+        - 'xenial'
+    - name: 'Debian'
+      versions:
+        - 'wheezy'
+        - 'jessie'
+    - name: 'EL'
+      versions:
+        - '6'
+        - '7'
+  galaxy_tags:
+    - 'ontic'
+    - 'system'
+    - 'typography'
+    - 'font'
+    - 'truetype'
+    - 'opentype'

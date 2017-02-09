@@ -1,0 +1,11 @@
+FROM ubuntu:16.04
+RUN apt-get update
+
+RUN apt install -y software-properties-common git
+RUN apt-add-repository -y ppa:ansible/ansible
+RUN apt -y update && apt -y install ansible
+RUN ansible-galaxy install ontic.cpdf
+
+COPY docker/initctl_faker .
+RUN chmod +x initctl_faker && rm -fr /sbin/initctl && ln -s /initctl_faker /sbin/initctl
+RUN echo "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts

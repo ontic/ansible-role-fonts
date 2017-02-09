@@ -1,0 +1,51 @@
+# This source file is subject to the (Open Source Initiative) BSD license
+# that is bundled with this package in the LICENSE file. It is also available
+# through the world-wide-web at this URL: http://www.ontic.com.au/license.html
+# If you did not receive a copy of the license and are unable to obtain it through
+# the world-wide-web, please send an email to license@ontic.com.au immediately.
+# Copyright (c) 2010-2016 Ontic. (http://www.ontic.com.au). All rights reserved.
+
+---
+
+sudo: 'required'
+
+env:
+  - distribution: 'centos'
+    version: '7'
+    init: '/usr/lib/systemd/systemd'
+    run_opts: '--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    role: 'ontic.fonts'
+    playbook: 'playbook.yml'
+  - distribution: 'ubuntu'
+    version: '16.04'
+    init: '/lib/systemd/systemd'
+    run_opts: '--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    role: 'ontic.fonts'
+    playbook: 'playbook.yml'
+
+services:
+  - 'docker'
+
+before_install:
+  - 'sudo docker pull ${distribution}:${version}'
+  - 'sudo docker build --rm=true --file=tests/docker/Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:ansible tests'
+
+script:
+  - 'container_id=$(mktemp)'
+  - 'sudo docker run --detach --volume="${PWD}":/etc/ansible/roles/${role}:ro ${run_opts} ${distribution}-${version}:ansible "${init}" > "${container_id}"'
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/${role}/tests/${playbook} --syntax-check'
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/${role}/tests/${playbook}'
+  - >
+    sudo docker exec "$(cat ${container_id})" ansible-playbook /etc/ansible/roles/${role}/tests/${playbook}
+    | tee /tmp/output.txt; grep -q "changed=0.*unreachable=0.*failed=0" /tmp/output.txt
+    && (echo "Idempotence test: Passed" && exit 0)
+    || (echo "Idempotence test: Failed" && exit 1)
+  - 'sudo docker stop "$(cat ${container_id})"'
+
+notifications:
+  webhooks:
+    urls:
+      - 'https://galaxy.ansible.com/api/v1/notifications/'
+    on_success: 'always'
+    on_failure: 'never'
+    on_start: 'never'
