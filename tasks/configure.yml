@@ -1,9 +1,5 @@
-# This source file is subject to the (Open Source Initiative) BSD license
-# that is bundled with this package in the LICENSE file. It is also available
-# through the world-wide-web at this URL: http://www.ontic.com.au/license.html
-# If you did not receive a copy of the license and are unable to obtain it through
-# the world-wide-web, please send an email to license@ontic.com.au immediately.
-# Copyright (c) 2010-2016 Ontic. (http://www.ontic.com.au). All rights reserved.
+# Copyright (c) Ontic. (http://www.ontic.com.au). All rights reserved.
+# See the COPYING file bundled with this package for license details.
 
 ---
 
@@ -16,7 +12,7 @@
     owner: 'root'
     mode: '0755'
   with_items: '{{ fonts_shared }}'
-  when: '{{ fonts_shared }}'
+  when: 'fonts_shared'
 
 - name: 'Fonts | Configure shared fonts.'
   become: yes
@@ -28,7 +24,7 @@
     mode: '0644'
   register: 'fonts_shared_installed'
   with_items: '{{ fonts_shared }}'
-  when: '{{ fonts_shared }}'
+  when: 'fonts_shared'
 
 - name: 'Fonts | Configure user font directories.'
   become: yes
@@ -39,7 +35,7 @@
     group: '{{ item.group | default(omit) }}'
     mode: '0755'
   with_items: '{{ fonts_user }}'
-  when: '{{ fonts_user }}'
+  when: 'fonts_user'
 
 - name: 'Fonts | Configure user fonts.'
   become: yes
@@ -51,8 +47,8 @@
     mode: '{{ item.mode | default(omit) }}'
   register: 'fonts_user_installed'
   with_items: '{{ fonts_user }}'
-  when: '{{ fonts_user }}'
+  when: 'fonts_user'
 
 - name: 'Font | Rebuild font information.'
   shell: 'fc-cache -f -v'
-  when: '{{ ansible_os_family == "Debian" and (fonts_multiverse_installed.changed or fonts_microsoft_installed.changed or fonts_shared_installed.changed or fonts_user_installed.changed) }}'
+  when: 'ansible_os_family == "Debian" and (fonts_multiverse_installed.changed or fonts_microsoft_installed.changed or fonts_shared_installed.changed or fonts_user_installed.changed)'

@@ -1,9 +1,5 @@
-# This source file is subject to the (Open Source Initiative) BSD license
-# that is bundled with this package in the LICENSE file. It is also available
-# through the world-wide-web at this URL: http://www.ontic.com.au/license.html
-# If you did not receive a copy of the license and are unable to obtain it through
-# the world-wide-web, please send an email to license@ontic.com.au immediately.
-# Copyright (c) 2010-2016 Ontic. (http://www.ontic.com.au). All rights reserved.
+# Copyright (c) Ontic. (http://www.ontic.com.au). All rights reserved.
+# See the COPYING file bundled with this package for license details.
 
 ---
 
@@ -12,7 +8,7 @@
   apt:
     name: 'apt-transport-https'
     state: 'latest'
-  when: '{{ ansible_os_family == "Debian" }}'
+  when: 'ansible_os_family == "Debian"'
 
 - name: 'Fonts | Debian | Update repository list.'
   become: yes
@@ -26,13 +22,13 @@
     - 'deb-src http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} multiverse'
     - 'deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates multiverse'
     - 'deb-src http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates multiverse'
-  when: '{{ ansible_os_family == "Debian" }}'
+  when: 'ansible_os_family == "Debian"'
 
 - name: 'Fonts | Debian | Update APT cache.'
   become: yes
   apt:
     update_cache: yes
-  when: '{{ ansible_os_family == "Debian" and fonts_multiverse_installed.changed }}'
+  when: 'ansible_os_family == "Debian" and fonts_multiverse_installed.changed'
 
 - name: 'Fonts | Debian | Install Microsoft Core Fonts prerequisites.'
   become: yes
@@ -43,7 +39,7 @@
     - 'libfreetype6'
     - 'libfreetype6-dev'
     - 'fontconfig'
-  when: '{{ ansible_os_family == "Debian" }}'
+  when: 'ansible_os_family == "Debian"'
 
 - name: 'Fonts | Debian | Accept Microsoft Core Fonts EULA.'
   become: yes
@@ -52,7 +48,7 @@
     question: 'msttcorefonts/accepted-mscorefonts-eula'
     value: 'true'
     vtype: 'select'
-  when: '{{ ansible_os_family == "Debian" }}'
+  when: 'ansible_os_family == "Debian"'
 
 - name: 'Fonts | Debian | Install Microsoft Core Fonts.'
   become: yes
@@ -60,7 +56,7 @@
     name: 'ttf-mscorefonts-installer'
     state: 'present'
   register: 'fonts_microsoft_installed'
-  when: '{{ ansible_os_family == "Debian" }}'
+  when: 'ansible_os_family == "Debian"'
 
 - name: 'Fonts | RedHat | Install Microsoft Core Fonts prerequisites.'
   become: yes
@@ -72,7 +68,7 @@
     - 'cabextract'
     - 'xorg-x11-font-utils'
     - 'fontconfig'
-  when: '{{ ansible_os_family == "RedHat" }}'
+  when: 'ansible_os_family == "RedHat"'
 
 - name: 'Fonts | RedHat | Install Microsoft Core Fonts.'
   become: yes
@@ -80,4 +76,4 @@
     name: 'https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm'
     state: 'present'
     validate_certs: no
-  when: '{{ ansible_os_family == "RedHat" }}'
+  when: 'ansible_os_family == "RedHat"'
