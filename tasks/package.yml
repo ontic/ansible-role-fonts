@@ -17,12 +17,8 @@
     state: 'present'
     update_cache: false
   register: 'fonts_multiverse_installed'
-  with_items:
-    - 'deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} multiverse'
-    - 'deb-src http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} multiverse'
-    - 'deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates multiverse'
-    - 'deb-src http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates multiverse'
-  when: 'ansible_os_family == "Debian"'
+  with_items: '{{ fonts_repositories }}'
+  when: 'ansible_distribution == "Debian"'
 
 - name: 'Fonts | Debian | Update APT cache.'
   become: yes

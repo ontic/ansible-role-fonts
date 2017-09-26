@@ -3,6 +3,18 @@
 
 ---
 
+- name: 'Fonts | Include OS-specific variables.'
+  include_vars: '{{ item }}'
+  with_first_found:
+    - '{{ ansible_distribution }}.yml'
+    - '{{ ansible_os_family }}.yml'
+  tags:
+    - 'fonts'
+    - 'fonts-package'
+    - 'fonts-configure'
+    - 'package'
+    - 'configure'
+
 - include: 'package.yml'
   tags:
     - 'fonts'

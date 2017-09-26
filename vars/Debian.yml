@@ -1,0 +1,8 @@
+# Copyright (c) Ontic. (http://www.ontic.com.au). All rights reserved.
+# See the COPYING file bundled with this package for license details.
+
+---
+
+fonts_repositories:
+  - 'deb http://ftp.debian.org/debian/ stable main non-free contrib'
+  - 'deb-src http://ftp.debian.org/debian/ stable main non-free contrib'
