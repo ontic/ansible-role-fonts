@@ -3,7 +3,7 @@
 
 ---
 
-- hosts: 'all'
+- hosts: 'localhost'
   vars:
     fonts_shared:
       - type: 'truetype'
@@ -15,4 +15,4 @@
         src: '{{ role_path }}/tests/fonts/Aulyars.otf'
         dest: 'dafont/Aulyars.otf'
   roles:
-    - { role: 'ontic.fonts' }
+    - { role: 'role_under_test' }
