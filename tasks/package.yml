@@ -71,7 +71,7 @@
 - name: 'Fonts | RedHat | Install Microsoft Core Fonts.'
   become: yes
   yum:
-    name: 'https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm'
+    name: 'https://raw.githubusercontent.com/therevoman/mscorefonts2-code/master/RPMS/noarch/msttcore-fonts-installer-2.6-1.noarch.rpm'
     state: 'present'
     validate_certs: no
   notify: 'rebuild fonts cache'
