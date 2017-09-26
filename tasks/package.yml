@@ -17,6 +17,7 @@
     state: 'present'
     update_cache: false
   register: 'fonts_multiverse_installed'
+  notify: 'rebuild fonts cache'
   with_items: '{{ fonts_repositories }}'
   when: 'ansible_distribution == "Debian"'
 
@@ -52,6 +53,7 @@
     name: 'ttf-mscorefonts-installer'
     state: 'present'
   register: 'fonts_microsoft_installed'
+  notify: 'rebuild fonts cache'
   when: 'ansible_os_family == "Debian"'
 
 - name: 'Fonts | RedHat | Install Microsoft Core Fonts prerequisites.'
@@ -72,4 +74,5 @@
     name: 'https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm'
     state: 'present'
     validate_certs: no
+  notify: 'rebuild fonts cache'
   when: 'ansible_os_family == "RedHat"'

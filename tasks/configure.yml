@@ -23,6 +23,7 @@
     group: 'root'
     mode: '0644'
   register: 'fonts_shared_installed'
+  notify: 'rebuild fonts cache'
   with_items: '{{ fonts_shared }}'
   when: 'fonts_shared'
 
@@ -46,9 +47,6 @@
     group: '{{ item.group | default(omit) }}'
     mode: '{{ item.mode | default(omit) }}'
   register: 'fonts_user_installed'
+  notify: 'rebuild fonts cache'
   with_items: '{{ fonts_user }}'
   when: 'fonts_user'
-
-- name: 'Font | Rebuild font information.'
-  shell: 'fc-cache -f -v'
-  when: 'ansible_os_family == "Debian" and (fonts_multiverse_installed.changed or fonts_microsoft_installed.changed or fonts_shared_installed.changed or fonts_user_installed.changed)'
