@@ -12,7 +12,7 @@
     owner: 'root'
     mode: '0755'
   with_items: 'fonts_shared | default(None) != None'
-  when: 'fonts_shared'
+  when: 'fonts_shared | default(None) != None'
 
 - name: 'Fonts | Configure shared fonts.'
   become: yes
@@ -25,7 +25,7 @@
   register: 'fonts_shared_installed'
   notify: 'rebuild fonts cache'
   with_items: 'fonts_shared | default(None) != None'
-  when: 'fonts_shared'
+  when: 'fonts_shared | default(None) != None'
 
 - name: 'Fonts | Configure user font directories.'
   become: yes
@@ -36,7 +36,7 @@
     group: '{{ item.group | default(omit) }}'
     mode: '0755'
   with_items: 'fonts_user | default(None) != None'
-  when: 'fonts_user'
+  when: 'fonts_user | default(None) != None'
 
 - name: 'Fonts | Configure user fonts.'
   become: yes
@@ -49,4 +49,4 @@
   register: 'fonts_user_installed'
   notify: 'rebuild fonts cache'
   with_items: 'fonts_user | default(None) != None'
-  when: 'fonts_user'
+  when: 'fonts_user | default(None) != None'
