@@ -11,7 +11,7 @@
     group: 'root'
     owner: 'root'
     mode: '0755'
-  with_items: 'fonts_shared | default(None) != None'
+  with_items: '{{ fonts_shared }}'
   when: 'fonts_shared | default(None) != None'
 
 - name: 'Fonts | Configure shared fonts.'
@@ -24,7 +24,7 @@
     mode: '0644'
   register: 'fonts_shared_installed'
   notify: 'rebuild fonts cache'
-  with_items: 'fonts_shared | default(None) != None'
+  with_items: '{{ fonts_shared }}'
   when: 'fonts_shared | default(None) != None'
 
 - name: 'Fonts | Configure user font directories.'
@@ -35,7 +35,7 @@
     owner: '{{ item.owner | default(item.name) }}'
     group: '{{ item.group | default(omit) }}'
     mode: '0755'
-  with_items: 'fonts_user | default(None) != None'
+  with_items: '{{ fonts_user }}'
   when: 'fonts_user | default(None) != None'
 
 - name: 'Fonts | Configure user fonts.'
@@ -48,5 +48,5 @@
     mode: '{{ item.mode | default(omit) }}'
   register: 'fonts_user_installed'
   notify: 'rebuild fonts cache'
-  with_items: 'fonts_user | default(None) != None'
+  with_items: '{{ fonts_user }}'
   when: 'fonts_user | default(None) != None'
