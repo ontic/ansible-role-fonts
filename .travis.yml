@@ -16,13 +16,13 @@ env:
 before_install:
   - 'export container_id=$(date +%s)'
   - 'export cleanup=false'
-  - 'wget -O ${PWD}/tests/test.sh https://raw.githubusercontent.com/ontic/ansible-role-test/master/test.sh'
-  - 'chmod +x ${PWD}/tests/test.sh'
-  - '${PWD}/tests/test.sh build'
+  - 'wget -O ${PWD}/tests/docker.sh https://raw.githubusercontent.com/ontic/ansible-role-test/master/docker.sh'
+  - 'chmod +x ${PWD}/tests/docker.sh'
+  - '${PWD}/tests/docker.sh build'
 
 script:
-  - '${PWD}/tests/test.sh test'
-  - 'docker exec --tty ${container_id} env TERM=xterm fc-list | grep true | sed -e "s|^.*/||" -e "s/:style=\(\<.*\>\).*$/ - \1/" -e "s/,.*$//" | sort'
+  - '${PWD}/tests/docker.sh test'
+  - '${PWD}/tests/docker.sh verify'
 
 notifications:
   webhooks: 'https://galaxy.ansible.com/api/v1/notifications/'
