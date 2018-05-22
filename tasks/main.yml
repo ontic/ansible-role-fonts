@@ -15,13 +15,13 @@
     - 'package'
     - 'configure'
 
-- include: 'package.yml'
+- import_tasks: 'package.yml'
   tags:
     - 'fonts'
     - 'fonts-package'
     - 'package'
 
-- include: 'configure.yml'
+- import_tasks: 'configure.yml'
   tags:
     - 'fonts'
     - 'fonts-configure'
