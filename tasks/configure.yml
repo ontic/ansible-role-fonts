@@ -6,7 +6,7 @@
 - name: 'Fonts | Configure shared font directories.'
   become: yes
   file:
-    path: '/usr/local/share/fonts/{{ item.type }}/{{ item.dest | dirname }}'
+    path: '/usr/share/fonts/{{ item.type }}/{{ item.dest | dirname }}'
     state: 'directory'
     group: 'root'
     owner: 'root'
@@ -18,7 +18,7 @@
   become: yes
   copy:
     src: '{{ item.src }}'
-    dest: '/usr/local/share/fonts/{{ item.type }}/{{ item.dest }}'
+    dest: '/usr/share/fonts/{{ item.type }}/{{ item.dest }}'
     owner: 'root'
     group: 'root'
     mode: '0644'
