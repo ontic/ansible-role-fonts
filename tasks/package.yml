@@ -76,4 +76,8 @@
     validate_certs: no
     disable_gpg_check: yes
   notify: 'rebuild fonts cache'
+  register: task_result
+  retries: 10 # Retries for 10 * 5 seconds = 50 seconds
+  until: task_result is success
+  delay: 5 # Every 5 seconds
   when: 'ansible_os_family == "RedHat"'
